@@ -41,6 +41,7 @@ ifdef dry-run
 	bump2version $(PART) --dry-run --no-commit --no-tag --verbose --allow-dirty
 else
 	bump2version $(PART)
+	git push origin HEAD
 	git push origin --tags
 endif
 else
