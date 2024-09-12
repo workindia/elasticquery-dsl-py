@@ -36,9 +36,13 @@ dist: clean ## builds source and wheel package
 release: clean ## make a release increment
 ifneq ($(filter $(PART),$(RELEASE_PARTS)),)
 	$(info Making a $(PART) release)
+ifdef dry-run
+	@echo 'Running in dry-run mode'
+	bump2version $(PART) --dry-run --no-commit --no-tag --verbose --allow-dirty
+else
 	bump2version $(PART)
 	git push origin --tags
-	git push origin master
+endif
 else
 	$(error Wrong part tag entered "$(PART)")
 endif
